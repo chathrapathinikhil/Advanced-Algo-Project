@@ -31,16 +31,13 @@ class SortInteger:
         return sortedArray,end-start
 
 
+if __name__ == '__main__':
+    #replace hardcoded input with the input from  frontend
+    UnSortedArray =[211,34,545,6,1,0]
+    print("Unsorted array",UnSortedArray)
 
-
-#replace hardcoded input with the input from  frontend
-UnSortedArray =[211,34,545,6,1,0]
-print("Unsorted array",UnSortedArray)
-
-sortingmethod =input("Select Sorting Mehtods:  InsertionSort BubbleSort  MergeSort HeapSort BucketSort CountingSort QuickSort RadixSort ")
-
-
-
-sortedArray, time_consumed = SortInteger.SortInteger(UnSortedArray,sortingmethod)
-print("Time Consumed " ,time_consumed)
-print("Sorted array",sortedArray)
+    sortingmethod =input("Select Sorting Mehtods:  InsertionSort BubbleSort  MergeSort HeapSort BucketSort CountingSort QuickSort RadixSort ")
+    
+    sortedArray, time_consumed = SortInteger.SortInteger(UnSortedArray,sortingmethod)
+    print("Time Consumed " ,time_consumed)
+    print("Sorted array",sortedArray)

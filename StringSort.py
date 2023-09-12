@@ -15,9 +15,6 @@ class SortString:
         "BubbleSort":BubbleSort.bubble_sort(UnSortedArray),
         "MergeSort":MergeSort.merge_sort(UnSortedArray),
         "HeapSort":HeapSort.heap_sort(UnSortedArray)
-
-
-
         }
         # start timer
         start = time.process_time()
@@ -29,21 +26,21 @@ class SortString:
 
 
 
+if __name__ == '__main__':
+  #replace hardcoded input with the input from  frontend
+  UnSortedArray =["California State University Fullerton", "California State University East Bay","California State University Long Beach","University Of Southern California", "Arizona State Univerity"]
 
-#replace hardcoded input with the input from  frontend
-UnSortedArray =["California State University Fullerton", "California State University East Bay","California State University Long Beach","University Of Southern California", "Arizona State Univerity"]
+  print("Unsorted array")
 
-print("Unsorted array")
+  for i in UnSortedArray:
+    print(i)
 
-for i in UnSortedArray:
-  print(i)
-
-sortingmethod =input("Select Sorting Mehtods:  InsertionSort BubbleSort  MergeSort HeapSort ")
+  sortingmethod =input("Select Sorting Mehtods:  InsertionSort BubbleSort  MergeSort HeapSort ")
 
 
 
-sortedArray, time_consumed = SortString.SortString(UnSortedArray,sortingmethod)
-print("Time Consumed " ,time_consumed)
-print("Sorted array")
-for i in sortedArray:
-  print(i)
+  sortedArray, time_consumed = SortString.SortString(UnSortedArray,sortingmethod)
+  print("Time Consumed " ,time_consumed)
+  print("Sorted array")
+  for i in sortedArray:
+    print(i)
