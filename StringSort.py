@@ -15,6 +15,8 @@ class SortString:
         "BubbleSort":BubbleSort.bubble_sort(UnSortedArray),
         "MergeSort":MergeSort.merge_sort(UnSortedArray),
         "HeapSort":HeapSort.heap_sort(UnSortedArray)
+
+
         }
         # start timer
         start = time.process_time()
@@ -23,6 +25,7 @@ class SortString:
         #end timer
         end = time.process_time()
         return sortedArray,end-start
+
 
 
 
@@ -44,3 +47,4 @@ if __name__ == '__main__':
   print("Sorted array")
   for i in sortedArray:
     print(i)
+

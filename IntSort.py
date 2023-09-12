@@ -11,6 +11,7 @@ class SortInteger:
 
         #use below sorting algorithms for String Input  
         sortingmethods = {
+
         "InsertionSort":InsertionSort.insertion_sort(UnSortedArray),
         "BubbleSort":BubbleSort.bubble_sort(UnSortedArray),
         "MergeSort":MergeSort.merge_sort(UnSortedArray),
@@ -21,14 +22,18 @@ class SortInteger:
         "RadixSort":RadixSort_090923.radix_sort(UnSortedArray)
 
 
+
         }
         # start timer
         start = time.process_time()
         #sort array using user inputted method
+
         sortedArray = sortingmethods[sortMethod]
+
         #end timer
         end = time.process_time()
         return sortedArray,end-start
+
 
 
 if __name__ == '__main__':
@@ -41,3 +46,4 @@ if __name__ == '__main__':
     sortedArray, time_consumed = SortInteger.SortInteger(UnSortedArray,sortingmethod)
     print("Time Consumed " ,time_consumed)
     print("Sorted array",sortedArray)
+
