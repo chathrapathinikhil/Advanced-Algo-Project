@@ -38,7 +38,7 @@ class SortInteger:
 
 if __name__ == '__main__':
     #replace hardcoded input with the input from  frontend
-    UnSortedArray =[211,34,545,6,1,0]
+    UnSortedArray =[211,-34,545,-6,1,0]
     print("Unsorted array",UnSortedArray)
 
     sortingmethod =input("Select Sorting Mehtods:  InsertionSort BubbleSort  MergeSort HeapSort BucketSort CountingSort QuickSort RadixSort ")
