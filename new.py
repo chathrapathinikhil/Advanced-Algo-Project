@@ -155,12 +155,28 @@ def run_algorithms():
     print("Selected array:", sorted_array)
     print("Selected Algorithms:", selected_algorithms)
 
-    plt.figure(figsize=(10, 6))
-    plt.bar(time_list.keys(), time_list.values(), color='skyblue')
-    plt.ylabel('Execution Time (micro seconds)')
-    plt.title('Execution Time of Sorting Algorithms on a Sorted Array')
-
-        # Display the graph
+    colors = ['red', 'yellow', 'green', 'blue', 'purple', 'orange', 'pink', 'cyan', 'magenta']
+ 
+    # Create a bar graph
+    fig, ax = plt.subplots(figsize=(10, 6))
+    bars = ax.bar(time_list.keys(), time_list.values(), color=colors)  # Use the colors directly
+    ax.set_ylabel('Execution Time (seconds)')
+    ax.set_title('Execution Time of Sorting Algorithms on a Sorted Array')
+ 
+    # Function to update the bar heights for animation
+    def update(heights):
+        for bar, new_height in zip(bars, heights):
+            bar.set_height(new_height)
+ 
+    # Animate the graph
+    def animate(frame):
+        # Replace execution times with animated values (e.g., frame * 0.01 for a simple animation)
+        new_execution_times = [time * (frame * 0.01) for time in time_list.values()]
+        update(new_execution_times)
+ 
+    ani = FuncAnimation(fig, animate, frames=100, interval=100, repeat=False)
+ 
+    # Display the animated graph
     plt.xticks(rotation=15, ha='right')  # Rotate x-axis labels for better readability
     plt.tight_layout()
     plt.show()
@@ -179,7 +195,7 @@ root.grid_rowconfigure((0, 1, 2), weight=1)
 
 # Create a style for the input label
 style = ttk.Style()
-style.configure("InputLabel.TLabel", font=("Roboto", 20, "bold"))
+style.configure("InputLabel.TLabel", font=("Roboto", 14,"bold" ))
 
 # Create and configure the header frame
 header_frame = customtkinter.CTkFrame(root, width=140, corner_radius=10)
@@ -206,14 +222,14 @@ error_label = ttk.Label(input_frame, text="", foreground="red")
 error_label.grid(row=2, columnspan=3)
 
 # Create and configure the array size field
-array_size_label = ttk.Label(input_frame, text="Enter array size:")
-array_size_label.grid(row=3, column=0, sticky=tk.W)
+array_size_label = ttk.Label(input_frame, text="Enter array size:  ", style="InputLabel.TLabel")
+array_size_label.grid(row=3, column=0, sticky=tk.W, padx=(10, 10), pady=(10,10))
 
 canvas = tk.Canvas(input_frame, width=200, height=30, bg="#2b2b2b", highlightthickness=0)
 # canvas.grid(row=3, column=0, sticky=tk.W)
 
 # array_size_label = canvas.create_text(0, 10, anchor=tk.W, text="Enter array size:", font=("ArcadeClassic Regular", 12, "bold"), fill="white")
-array_size_label = ttk.Label(input_frame, text="Enter array size:", background="White")
+array_size_label = ttk.Label(input_frame, text="Enter array size:", background="White", style="InputLabel.TLabel")
 
 
 
