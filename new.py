@@ -19,16 +19,15 @@ user_input = ""
 flag = False
 time_list = {}
 
-
-
 # Function to handle user input and validation
 def handle_user_input():
     global user_input, data_type, flag
     user_input = input_field.get()
-#     data_type = data_type_var.get()
-    selected_data_label.config(text=f"Selected Option: {user_input}")
     if validate_input(user_input, "number"):
         error_label.config(text="Valid input", foreground="green")
+        # Update the generated_array_text widget with the new array
+        generated_array_text.delete(1.0, tk.END)  # Clear previous content
+        generated_array_text.insert(tk.END, ''.join(map(str, user_input)))
         flag = False
     else:
         error_label.config(text="Invalid input. Please check your data type selection.", foreground="red")
@@ -48,38 +47,6 @@ def generate_array():
         generated_array_text.insert(tk.END, ', '.join(map(str, unsorted_array)))
     else:
         array_size_label.config(text="Invalid input for array size")
-
-# Display output
-def display_output():
-    print('Displaying the')
-
-# Create a function to update the plot data
-def update_plot(frame):
-    colors = ['red', 'yellow', 'green', 'black', 'blue','pink','purple','grey','orange']  # List of colors
-
-    # Create a bar graph
-    fig, ax = plt.subplots(figsize=(10, 6))
-    bars = ax.bar(time_list.keys(), time_list.values(), color=colors)  # Use the colors directly
-    ax.set_ylabel('Execution Time (seconds)')
-    ax.set_title('Execution Time of Sorting Algorithms on a Sorted Array')
-
-    # Function to update the bar heights for animation
-    def update(heights):
-        for bar, new_height in zip(bars, heights):
-            bar.set_height(new_height)
-
-    # Animate the graph
-    def animate(frame):
-        # Replace execution times with animated values (e.g., frame * 0.01 for a simple animation)
-        new_execution_times = [time * (frame * 0.01) for time in time_list.values()]
-        update(new_execution_times)
-
-    ani = FuncAnimation(fig, animate, frames=100, interval=100, repeat=False)
-
-    # Display the animated graph
-    plt.xticks(rotation=15, ha='right')  # Rotate x-axis labels for better readability
-    plt.tight_layout()
-    plt.show()
 
 # Function to toggle all checkboxes
 def toggle_all_checkboxes():
@@ -208,6 +175,10 @@ header_button.grid(row=0, column=0, padx=10)
 input_frame = customtkinter.CTkFrame(root, width=140, corner_radius=10)
 input_frame.pack(padx=20, pady=20)
 
+# Create and configure the button for input
+input_button = customtkinter.CTkButton(input_frame, text="Click Me!", fg_color="transparent", hover_color="light blue")
+input_button.grid(row=0, column=0, sticky=tk.W, padx=(10, 10), pady=(10, 10))
+
 # Create and configure the input field
 input_label = ttk.Label(input_frame, text="Enter comma-separated input:", style="InputLabel.TLabel")
 input_label.grid(row=1, column=0, sticky=tk.W, padx=(10, 10), pady=(10,10))  # Add padx for space
@@ -232,9 +203,6 @@ canvas = tk.Canvas(input_frame, width=200, height=30, bg="#2b2b2b", highlightthi
 # array_size_label = canvas.create_text(0, 10, anchor=tk.W, text="Enter array size:", font=("ArcadeClassic Regular", 12, "bold"), fill="white")
 array_size_label = ttk.Label(input_frame, text="Enter array size:", background="White", style="InputLabel.TLabel")
 
-
-
-
 array_size_entry = ttk.Entry(input_frame, width=10)
 array_size_entry.grid(row=3, column=1)
 
@@ -242,12 +210,8 @@ logo_image = ImageTk.PhotoImage(Image.open("img/play_button_icon.png").resize((3
 generate_button = customtkinter.CTkButton(input_frame, text="Generate Array", image = logo_image,command=generate_array,fg_color= "transparent" , hover_color="light blue")
 generate_button.grid(row=3, column=2, padx=10)
 
-# Create a label to display the selected data
-selected_data_label = ttk.Label(root, text="")
-selected_data_label.pack(padx=20, pady=10)
-
 # Create a label to display the generated array
-generated_array_label = ttk.Label(root, text="Generated Array:")
+generated_array_label = ttk.Label(root, text="Generated Array")
 generated_array_label.pack(pady=10)
 
 generated_array_text = tk.Text(root, height=5, width=50)
@@ -269,8 +233,6 @@ algorithm_checkboxes = [ttk.Checkbutton(algorithm_frame, text=label, variable=va
 for i, checkbox in enumerate(algorithm_checkboxes):
     checkbox.grid(row=i, column=0, sticky=tk.W)
 
-
-
 # Create a "Select All" checkbox
 select_all_var = tk.IntVar()
 select_all_checkbox = ttk.Checkbutton(algorithm_frame, text="Select All", variable=select_all_var)
@@ -289,5 +251,3 @@ reset_button.pack(pady=10)
 
 # Start the Tkinter main loop
 root.mainloop()
-
-#test
