@@ -1,3 +1,4 @@
+#Importing necessary libraries and modules
 import tkinter as tk
 from tkinter import ttk
 import random
@@ -12,10 +13,10 @@ import matplotlib.animation as animation
 from matplotlib.animation import FuncAnimation
 
 # Define global variables for user input and sorting results
-unsorted_array = []
-user_input = ""
-flag = False
-time_list = {}
+unsorted_array = [] # To store random generated array
+user_input = "" # To store user input
+flag = False # To switch between the user input and random generated array
+time_list = {} # To store the time taken to run the algorithm
 
 # Function to handle user input and validation
 def handle_user_input():
@@ -28,6 +29,7 @@ def handle_user_input():
         generated_array_text.insert(tk.END, ''.join(map(str, user_input)))
         flag = False
     else:
+        # To print error message
         error_label.config(
             text="Invalid input. Please check your data type selection.", foreground="red"
         )
@@ -56,7 +58,6 @@ def toggle_all_checkboxes():
     checkbox_state = select_all_var.get()
     for var in algorithm_vars:
         var.set(checkbox_state)
-    # If "Select All" is unchecked, ensure the "Select All" checkbox is also unchecked
     if not checkbox_state:
         select_all_var.set(0)
 
@@ -74,6 +75,7 @@ def reset_values():
 
 # Function to run selected sorting algorithms and plot results
 def run_algorithms():
+    # Dictionary to store execution times for each algorithm
     time_list = {}
     global flag
     selected_algorithms = [algo_var.get() for algo_var in algorithm_vars]
@@ -81,7 +83,7 @@ def run_algorithms():
 
     for algo_index, selected in enumerate(selected_algorithms):
         if selected == "1":
-
+            # Determine the array to sort based on user input and flag
             if flag:
                 arr_new1 = unsorted_array
             else:
@@ -90,6 +92,8 @@ def run_algorithms():
             print(arr_new1)
             arr_new = arr_new1.copy()  # Make a copy of the input array
             start_time = time.time()
+
+            # Determine the sorting algorithm based on the index (selected checkboxes)
             if algo_index == 0:
                 sorted_array, time_consumed = SortInteger.SortInteger(
                     arr_new, "BubbleSort"
@@ -137,30 +141,17 @@ def run_algorithms():
                 time_list["Selection Sort"] = time_consumed * 1000000
 
             end_time = time.time()
-            execution_time = end_time - start_time
+            execution_time = end_time - start_time # Calculating execution time
             execution_times.append(execution_time)
 
-    # Plot the comparison graph
-    print("Selected List:", time_list)
-    print("Selected array:", sorted_array)
-    print("Selected Algorithms:", selected_algorithms)
+    # List of colors for graph
+    colors = ["red", "yellow", "green", "blue", "purple", "orange", "pink", "cyan", "magenta"]
 
-    colors = [
-        "red",
-        "yellow",
-        "green",
-        "blue",
-        "purple",
-        "orange",
-        "pink",
-        "cyan",
-        "magenta",
-    ]
 
     # Create a bar graph
     fig, ax = plt.subplots(figsize=(10, 6))
     bars = ax.bar(time_list.keys(), time_list.values(), color=colors)  # Use the colors directly
-    ax.set_ylabel("Execution Time (seconds)")
+    ax.set_ylabel("Execution Time (microseconds)")
     ax.set_title("Execution Time of Sorting Algorithms on a Sorted Array")
 
     # Function to update the bar heights for animation
@@ -180,9 +171,6 @@ def run_algorithms():
     plt.xticks(rotation=15, ha="right")  # Rotate x-axis labels for better readability
     plt.tight_layout()
     plt.show()
-
-    # plot_comparison(selected_algorithms, execution_times)
-
 
 # Create the main window
 root = customtkinter.CTk()
@@ -212,15 +200,17 @@ header_button.grid(row=0, column=0, padx=10)
 input_frame = customtkinter.CTkFrame(root, width=140, corner_radius=10)
 input_frame.pack(padx=20, pady=20)
 
-# Create and configure the input field
+# Create and configure the input field label
 input_label = ttk.Label(
     input_frame, text="Enter comma-separated input:", style="InputLabel.TLabel"
 )
 input_label.grid(row=1, column=0, sticky=tk.W, padx=(10, 10), pady=(10, 10))  # Add padx for space
 
+# Create and configure the input field
 input_field = ttk.Entry(input_frame, width=40)
 input_field.grid(row=1, column=1)
 
+# Create and configure the validation button
 validate_image = ImageTk.PhotoImage(
     Image.open("img/validate_button_icon.png").resize((30, 30))
 )
@@ -234,17 +224,21 @@ validate_button = customtkinter.CTkButton(
 )
 validate_button.grid(row=1, column=2, padx=10)
 
+# Create and configure the error label
 error_label = ttk.Label(input_frame, text="", foreground="red")
 error_label.grid(row=2, columnspan=3)
 
-# Create and configure the array size field
+
+# Create and configure the array size label
 array_size_label = ttk.Label(
     input_frame, text="Enter array size:  ", style="InputLabel.TLabel"
 )
 array_size_label.grid(row=3, column=0, sticky=tk.W, padx=(10, 10), pady=(10, 10))
 
+# Create a canvas for design purposes
 canvas = tk.Canvas(input_frame, width=200, height=30, bg="#2b2b2b", highlightthickness=0)
 
+# Create and configure the array size label (background is set to White)
 array_size_label = ttk.Label(
     input_frame,
     text="Enter array size:",
@@ -252,9 +246,11 @@ array_size_label = ttk.Label(
     style="InputLabel.TLabel",
 )
 
+# Create and configure the array size entry field
 array_size_entry = ttk.Entry(input_frame, width=10)
 array_size_entry.grid(row=3, column=1)
 
+# Create and configure the "Generate Array" button
 logo_image = ImageTk.PhotoImage(
     Image.open("img/play_button_icon.png").resize((30, 30))
 )
@@ -268,10 +264,12 @@ generate_button = customtkinter.CTkButton(
 )
 generate_button.grid(row=3, column=2, padx=10)
 
+
 # Create a label to display the generated array
 generated_array_label = ttk.Label(root, text="Generated Array")
 generated_array_label.pack(pady=10)
 
+# Create a text widget to display the generated array
 generated_array_text = tk.Text(root, height=5, width=50)
 generated_array_text.pack(pady=10)
 
@@ -279,6 +277,7 @@ generated_array_text.pack(pady=10)
 algorithm_frame = ttk.Frame(root)
 algorithm_frame.pack(padx=20, pady=10)
 
+# List of sorting algorithm labels
 algorithm_labels = [
     "Bubble Sort",
     "Insertion Sort",
@@ -291,15 +290,19 @@ algorithm_labels = [
     "Selection Sort",
 ]
 
+# Create StringVar instances to track the checkbox states
 algorithm_vars = [tk.StringVar() for _ in algorithm_labels]
 
+# Create checkboxes for each sorting algorithm
 algorithm_checkboxes = [
     ttk.Checkbutton(algorithm_frame, text=label, variable=var)
     for label, var in zip(algorithm_labels, algorithm_vars)
 ]
 
+# Place the checkboxes in the algorithm frame
 for i, checkbox in enumerate(algorithm_checkboxes):
     checkbox.grid(row=i, column=0, sticky=tk.W)
+
 
 # Create a "Select All" checkbox
 select_all_var = tk.IntVar()
