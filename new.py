@@ -96,6 +96,7 @@ def reset_values():
     array_size_entry.delete(0, tk.END)  # Clear the array size entry
     generated_array_text.delete(1.0, tk.END)  # Clear the generated array text
     select_all_var.set(0)  # Uncheck "Select All" checkbox
+    error_label.config(text="")
     for var in algorithm_vars:
         var.set(0)  # Uncheck all checkboxes
     
@@ -267,7 +268,8 @@ algorithm_checkboxes = [ttk.Checkbutton(algorithm_frame, text=label, variable=va
 
 for i, checkbox in enumerate(algorithm_checkboxes):
     checkbox.grid(row=i, column=0, sticky=tk.W)
-    
+
+
 
 # Create a "Select All" checkbox
 select_all_var = tk.IntVar()
