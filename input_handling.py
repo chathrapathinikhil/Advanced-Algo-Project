@@ -1,4 +1,4 @@
-import random
+import secrets
 
 def validate_input(input_str, data_type):
     try:
@@ -11,4 +11,4 @@ def validate_input(input_str, data_type):
         return False
 
 def generate_random_array(size):
-    return [random.randint(-1000, 1000) for _ in range(size)]
+    return [secrets.SystemRandom().randint(-1000, 1000) for _ in range(size)]
