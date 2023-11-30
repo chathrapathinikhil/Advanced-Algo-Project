@@ -1,16 +1,15 @@
 #Importing necessary libraries and modules
 import tkinter as tk
 from tkinter import ttk
-import random
 import time
 from input_handling import validate_input
 from IntSort import SortInteger
 import matplotlib.pyplot as plt
 import customtkinter
 from PIL import Image, ImageTk
-import random
 import matplotlib.animation as animation
 from matplotlib.animation import FuncAnimation
+import secrets
 
 # Define global variables for user input and sorting results
 unsorted_array = [] # To store random generated array
@@ -41,7 +40,7 @@ def generate_array():
     array_size = array_size_entry.get()
     if array_size.isdigit():
         array_size = int(array_size)
-        unsorted_array = [random.randint(1, 1000) for _ in range(array_size)]
+        unsorted_array = [secrets.SystemRandom().randint(1, 1000) for _ in range(array_size)]
         array_size_label.config(
             text="Array generated with size: " + str(array_size)
         )
